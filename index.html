@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devora Agency</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --main-bg: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            --accent-gradient: linear-gradient(to right, #ff9a9e, #fecfef, #a18cd1);
+            --accent-color: #a18cd1;
+            --card-bg: rgba(0,0,0,0.3);
+            --text-color: white;
+        }
+
+        body {
+            background: var(--main-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Анимированный фон для всех секций */
+        section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            opacity: 0.5;
+            filter: blur(50px);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .bg-circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        .bg-circle:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            bottom: -250px;
+            right: -250px;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, 20px) scale(1.1); }
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.2);
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 12px 24px;
+            margin: 5px 8px;
+            border-radius: 30px;
+            background: #000;
+            transition: all 0.1s linear;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .nav a:hover {
+            background: var(--text-color);
+            color: black;
+            transform: translateY(-2px);
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 80px 5% 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: zoom 5s infinite ease-in-out;
+        }
+
+        @keyframes zoom {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .glitched-text {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.glitched-text span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: glitchReveal 0.5s forwards;
+}
+        
+
+        @keyframes glitchReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) skewX(30deg);
+                filter: blur(10px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-5px) skewX(-10deg);
+                filter: blur(2px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) skewX(0);
+                filter: blur(0);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* Секция "О нас" */
+        #about {
+            background: linear-gradient(135deg, #0f3460, #16213e);
+        }
+
+        .about-text {
+            font-size: 1.4rem;
+            max-width: 900px;
+            margin: 40px auto;
+            line-height: 1.8;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.3s;
+        }
+
+        #about.visible .about-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .services-title {
+            font-size: 2.5rem;
+            margin: 60px 0 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.6s;
+        }
+
+        #about.visible .services-title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.9s;
+        }
+
+        #about.visible .services-grid {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: left;
+            transition: all 0.05s linear !important;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            will-change: transform, background, color;
+        }
+
+        #about.visible .service-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card:nth-child(1) { transition-delay: 0.1s; }
+        .service-card:nth-child(2) { transition-delay: 0.2s; }
+        .service-card:nth-child(3) { transition-delay: 0.3s; }
+        .service-card:nth-child(4) { transition-delay: 0.4s; }
+        .service-card:nth-child(5) { transition-delay: 0.5s; }
+        .service-card:nth-child(6) { transition-delay: 0.6s; }
+
+        .service-card:hover {
+            background: white !important;
+            color: black !important;
+            transform: translateY(-5px) scale(1.02) !important;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Секция "Почему мы?" */
+        .benefits-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .benefit-item {
+            background: var(--card-bg);
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            text-align: left;
+            backdrop-filter: blur(5px);
+            border-left: 4px solid var(--accent-color);
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+            cursor: pointer;
+            transition: all 0.05s linear !important;
+            will-change: transform, background, color;
+        }
+
+        #benefits.visible .benefit-item {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .benefit-item:nth-child(1) { transition-delay: 0.1s; }
+        .benefit-item:nth-child(2) { transition-delay: 0.2s; }
+        .benefit-item:nth-child(3) { transition-delay: 0.3s; }
+        .benefit-item:nth-child(4) { transition-delay: 0.4s; }
+        .benefit-item:nth-child(5) { transition-delay: 0.5s; }
+        .benefit-item:nth-child(6) { transition-delay: 0.6s; }
+        .benefit-item:nth-child(7) { transition-delay: 0.7s; }
+
+        .benefit-item:hover {
+            background: white !important;
+            color: black !important;
+            transform: translateY(-5px) scale(1.02) !important;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .benefit-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-right: 15px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Секция реферальной программы */
+        .ref-section {
+            background: linear-gradient(135deg, #1a1a2e, #0f3460);
+        }
+
+        .ref-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+            margin: 30px 0;
+        }
+
+        .ref-step {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+            cursor: pointer;
+            transition: all 0.05s linear !important;
+            will-change: transform, background, color;
+        }
+
+        #ref.visible .ref-step {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .ref-step:nth-child(1) { transition-delay: 0.1s; }
+        .ref-step:nth-child(2) { transition-delay: 0.3s; }
+        .ref-step:nth-child(3) { transition-delay: 0.5s; }
+
+        .ref-step:hover {
+            background: white !important;
+            color: black !important;
+            transform: translateY(-5px) scale(1.02) !important;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .ref-step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            margin-top: 20px;
+            background: var(--accent-gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.1s linear;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        section.visible .cta-button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05) !important;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Секция контактов */
+        #contacts {
+            background: linear-gradient(135deg, #16213e, #1a1a2e);
+        }
+
+        .contact-description {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease 0.2s;
+        }
+
+        #contacts.visible .contact-description {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .contact-link {
+            padding: 20px;
+            background: #000;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.05s linear !important;
+            text-align: center;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+            will-change: transform, background, color;
+        }
+
+        #contacts.visible .contact-link {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-link:nth-child(1) { transition-delay: 0.1s; }
+        .contact-link:nth-child(2) { transition-delay: 0.2s; }
+        .contact-link:nth-child(3) { transition-delay: 0.3s; }
+        .contact-link:nth-child(4) { transition-delay: 0.4s; }
+
+        .contact-link:hover {
+            background: white !important;
+            color: black !important;
+            transform: translateY(-5px) scale(1.02) !important;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .contact-link i {
+            font-size: 2rem;
+        }
+
+        /* Футер */
+        footer {
+            background: #000;
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: white;
+            font-size: 2.2rem;
+            transition: all 0.1s linear;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            opacity: 0.7;
+            font-size: 1.1rem;
+        }
+
+        .policy-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .policy-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+                animation: none;
+            }
+            .glitch-text {
+                font-size: 1.4rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav a {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+                margin: 3px;
+            }
+            .ref-steps {
+                grid-template-columns: 1fr;
+            }
+            .benefits-container {
+                width: 100%;
+            }
+            .benefit-item {
+                margin: 15px 0;
+                padding: 20px;
+            }
+            .contact-link {
+                padding: 15px;
+                font-size: 1rem;
+            }
+            .contact-link i {
+                font-size: 1.6rem;
+            }
+            .footer-link {
+                font-size: 1.8rem;
+            }
+            .bg-circle:nth-child(1) {
+                width: 200px;
+                height: 200px;
+            }
+            .bg-circle:nth-child(2) {
+                width: 300px;
+                height: 300px;
+            }
+            .about-text {
+                font-size: 1.1rem;
+                padding: 0 10px;
+            }
+            .contact-description {
+                font-size: 1.1rem;
+                padding: 0 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            .glitch-text {
+                font-size: 1.1rem;
+            }
+            .nav {
+                padding: 15px 3%;
+            }
+            .nav a {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+            section {
+                padding: 70px 3% 30px;
+            }
+            .footer-link {
+                font-size: 1.5rem;
+            }
+            .footer-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="#home">Главная</a>
+        <a href="#about">О нас</a>
+        <a href="#benefits">Почему мы?</a>
+        <a href="#ref">Партнерам</a>
+        <a href="#contacts">Контакты</a>
+    </nav>
+
+    <section id="home">
+        <div class="animated-bg">
+            <div class="bg-circle"></div>
+            <div class="bg-circle"></div>
+        </div>
+        <h1>Devora Agency</h1>
+        <div class="glitched-text" id="glitched-text"></div>
+        <p class="subtitle">Экономим ваше время, увеличиваем обороты и удерживаем клиентов.</p>
+        <a href="#contacts" class="cta-button">Получить консультацию</a>
+    </section>
+
+    <section id="about">
+        <div class="animated-bg">
+            <div class="bg-circle"></div>
+            <div class="bg-circle"></div>
+        </div>
+        <h2>О нас</h2>
+        <p class="about-text">Devora Agency — агенство по автоматизации бизнес-процессов на базе искусственного интеллекта. Мы помогаем бизнесам запускать умные решения, которые экономят время, удерживают клиентов и увеличивают обороты. Наша цель — сделать технологии простыми и доступными, чтобы вы могли сосредоточиться на развитии и прогрессе, а не на рутине.</p>
+        
+        <h2 class="services-title">Наши услуги</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>🤖 ИИ-агенты</h3>
+                <p>Автоматическая обработка заявок и звонков, квалификация лидов, поддержка клиентов.</p>
+            </div>
+            <div class="service-card">
+                <h3>🌐 Веб-сайты</h3>
+                <p>Лендинги, корпоративные сайты и интернет-магазины с интеграцией оплаты.</p>
+            </div>
+            <div class="service-card">
+                <h3>💬 Чат-боты</h3>
+                <p>Telegram, Instagram, VK, WhatsApp — от воронки продаж до техподдержки 24/7.</p>
+            </div>
+            <div class="service-card">
+                <h3>⚡️ Интеграции</h3>
+                <p>CRM, email, платёжные системы, учёт и отчётность.</p>
+            </div>
+            <div class="service-card">
+                <h3>📊 Аналитика</h3>
+                <p>Дашборды KPI, сквозная аналитика эффективности и ROI.</p>
+            </div>
+            <div class="service-card">
+                <h3>👨‍💻 Техподдержка</h3>
+                <p>SLA, обновления и доработка по запросу.</p>
+            </div>
+        </div>
+        <a href="#contacts" class="cta-button">Обсудить мой проект</a>
+    </section>
+
+    <section id="benefits">
+        <div class="animated-bg">
+            <div class="bg-circle"></div>
+            <div class="bg-circle"></div>
+        </div>
+        <h2>Почему выбирают Devora?</h2>
+        <div class="benefits-container">
+            <div class="benefit-item">
+                <span class="benefit-number">1</span>
+                <strong>Экономия времени</strong> — автоматизация снимает рутинные задачи и ускоряет обработку заявок.
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-number">2</span>
+                <strong>Не теряете клиентов</strong> — быстрые ответы и работа 24/7 минимизируют уход клиентов.
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-number">3</span>
+                <strong>Рост оборотов</strong> — оптимизированные воронки и ИИ-решения повышают конверсию.
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-number">4</span>
+                <strong>Экономия на персонале</strong> — автоматизация дешевле найма целой команды.
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-number">5</span>
+                <strong>Быстрый запуск</strong> — стартовые решения за считанные дни, масштабирование по мере роста.
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-number">6</span>
+                <strong>Индивидуальный подход</strong> — подбираем решения под конкретные цели бизнеса.
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-number">7</span>
+                <strong>Прозрачность</strong> — отчёты и аналитика в понятном виде.
+            </div>
+        </div>
+        <a href="#contacts" class="cta-button">Узнать подробности</a>
+    </section>
+
+    <section id="ref" class="ref-section">
+        <div class="animated-bg">
+            <div class="bg-circle"></div>
+            <div class="bg-circle"></div>
+        </div>
+        <h2>Реферальная программа</h2>
+        <p class="subtitle">Приводите клиентов и получайте 50% от каждой продажи</p>
+        
+        <div class="ref-steps">
+            <div class="ref-step">
+                <div class="ref-step-number">1</div>
+                <p>Напишите @devora_admin и получите уникальный реферальный код.</p>
+            </div>
+            <div class="ref-step">
+                <div class="ref-step-number">2</div>
+                <p>Передавайте код клиентам — они используют его при оформлении заказа.</p>
+            </div>
+            <div class="ref-step">
+                <div class="ref-step-number">3</div>
+                <p>Как только клиент оплачивает услугу, вы получаете вознаграждение.</p>
+            </div>
+        </div>
+
+        <p style="max-width: 800px; margin: 20px auto;"><strong>Выплата:</strong> 50% от оплаченной клиентом суммы (за вычетом платежных комиссий). При рассрочке — выплаты поступают пропорционально.</p>
+        
+        <a href="https://t.me/devora_admin" class="cta-button">Получить реферальный код</a>
+    </section>
+
+    <section id="contacts">
+        <div class="animated-bg">
+            <div class="bg-circle"></div>
+            <div class="bg-circle"></div>
+        </div>
+        <h2 class="contact-title">Свяжитесь с нами</h2>
+        <p class="contact-description">Мы всегда рады новым проектам и заказам, наша команда очень большая и мы можем сразу обрабатывать большое количество заказов с максимальной скоростью.</p>
+        
+        <div class="contact-container">
+            <div class="contact-links">
+                <a href="https://t.me/devora_admin" target="_blank" class="contact-link"><i class="fab fa-telegram"></i> Телеграм для связи (@devora_admin)</a>
+                <a href="mailto:devora.agency@mail.ru" class="contact-link"><i class="far fa-envelope"></i> Почта: devora.agency@mail.ru</a>
+                <a href="https://www.instagram.com/devora_aagency" target="_blank" class="contact-link"><i class="fab fa-instagram"></i> Инстаграм (DM)</a>
+                <a href="https://t.me/devora_agency" target="_blank" class="contact-link"><i class="fab fa-telegram"></i> Наш телеграм-канал</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://t.me/devora_agency" class="footer-link"><i class="fab fa-telegram"></i></a>
+            <a href="https://www.instagram.com/devora_aagency" class="footer-link"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:devora.agency@mail.ru" class="footer-link"><i class="far fa-envelope"></i></a>
+        </div>
+        <p class="footer-text">© 2024 Devora Agency. Все права защищены.</p>
+        <p class="footer-text"><a href="https://telegra.ph/Politika-Devora-Agency-09-15" class="policy-link" target="_blank">Политика конфиденциальности</a></p>
+    </footer>
+
+    <script>
+        // Плавная прокрутка при клике на навигацию
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if(this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Наблюдатель для анимации появления секций
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        // Наблюдаем за всеми секциями
+        document.querySelectorAll('section').forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Крутая анимация глитч-текста
+        function startGlitchAnimation() {
+    const glitchText = document.getElementById('glitched-text');
+    const text = "Инновационные умные решения для роста вашего бизнеса.";
+    
+    // Просто создаем один span с целым текстом
+    const textSpan = document.createElement('span');
+    textSpan.textContent = text;
+    textSpan.style.animationDelay = `0.2s`;
+    glitchText.appendChild(textSpan);
+}
+
+        // Запускаем анимацию текста когда секция становится видимой
+        const homeObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                setTimeout(startGlitchAnimation, 300);
+                homeObserver.disconnect();
+            }
+        }, { threshold: 0.5 });
+        
+        homeObserver.observe(document.getElementById('home'));
+
+        // Форсируем мгновенные анимации при наведении
+        document.querySelectorAll('.service-card, .benefit-item, .ref-step, .contact-link').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transition = 'all 0.05s linear !important';
+            });
+        });
+    </script>
+</body>
+</html>
