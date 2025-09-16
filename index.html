@@ -27,6 +27,7 @@
             overflow-x: hidden;
             scroll-behavior: smooth;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-overflow-scrolling: touch;
         }
 
         /* Анимированный фон для всех секций */
@@ -92,13 +93,14 @@
         .nav a {
             color: var(--text-color);
             text-decoration: none;
-            padding: 12px 24px;
+            padding: 15px 25px;
             margin: 5px 8px;
             border-radius: 30px;
             background: #000;
             transition: all 0.1s linear;
             font-weight: 500;
             letter-spacing: 0.5px;
+            font-size: 1rem;
         }
 
         .nav a:hover {
@@ -152,14 +154,18 @@
     position: relative;
     text-transform: uppercase;
     letter-spacing: 2px;
+    height: 60px; /* Добавь эту строку */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.glitched-text span {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: glitchReveal 0.5s forwards;
-}
+        .glitched-text span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: glitchReveal 0.5s forwards;
+        }
         
 
         @keyframes glitchReveal {
@@ -540,25 +546,28 @@
         /* Адаптивность */
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.2rem;
-                animation: none;
+                font-size: 2.5rem;
+            
             }
-            .glitch-text {
-                font-size: 1.4rem;
+            .glitched-text {
+                font-size: 1.6rem;
             }
             h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             .subtitle {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
             .services-grid {
                 grid-template-columns: 1fr;
             }
+            .nav {
+                padding: 15px 4%;
+            }
             .nav a {
-                padding: 10px 16px;
-                font-size: 0.9rem;
-                margin: 3px;
+                padding: 14px 22px;
+                font-size: 1.1rem;
+                margin: 6px;
             }
             .ref-steps {
                 grid-template-columns: 1fr;
@@ -569,16 +578,17 @@
             .benefit-item {
                 margin: 15px 0;
                 padding: 20px;
+                font-size: 1.1rem;
             }
             .contact-link {
-                padding: 15px;
-                font-size: 1rem;
+                padding: 18px;
+                font-size: 1.1rem;
             }
             .contact-link i {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
             }
             .footer-link {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             .bg-circle:nth-child(1) {
                 width: 200px;
@@ -589,38 +599,76 @@
                 height: 300px;
             }
             .about-text {
-                font-size: 1.1rem;
-                padding: 0 10px;
+                font-size: 1.2rem;
+                padding: 0 15px;
             }
             .contact-description {
-                font-size: 1.1rem;
-                padding: 0 10px;
+                font-size: 1.2rem;
+                padding: 0 15px;
+            }
+            .service-card, .benefit-item, .ref-step {
+                padding: 25px;
             }
         }
 
         @media (max-width: 480px) {
             h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
-            .glitch-text {
-                font-size: 1.1rem;
+            .glitched-text {
+                font-size: 1.3rem;
             }
             .nav {
-                padding: 15px 3%;
+                padding: 12px 3%;
             }
             .nav a {
-                padding: 8px 12px;
-                font-size: 0.8rem;
+                padding: 12px 18px;
+                font-size: 1rem;
+                margin: 4px;
             }
             section {
-                padding: 70px 3% 30px;
+                padding: 70px 4% 30px;
             }
             .footer-link {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
             .footer-text {
                 font-size: 1rem;
             }
+            .nav a {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Исправление для плавной прокрутки на iOS */
+        @supports (-webkit-touch-callout: none) {
+            html, body {
+                height: 100%;
+                overflow: hidden;
+            }
+            
+            body {
+                position: fixed;
+                width: 100%;
+                overflow-y: scroll;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            section {
+                min-height: 100vh;
+                min-height: -webkit-fill-available;
+            }
+        }
+
+        /* Улучшение производительности */
+        .service-card,
+        .benefit-item,
+        .ref-step,
+        .contact-link {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000px;
         }
     </style>
 </head>
@@ -726,13 +774,13 @@
             <div class="bg-circle"></div>
             <div class="bg-circle"></div>
         </div>
-        <h2>Реферальная программа</h2>
+        <h2>Реферальная система</h2>
         <p class="subtitle">Приводите клиентов и получайте 50% от каждой продажи</p>
         
         <div class="ref-steps">
             <div class="ref-step">
                 <div class="ref-step-number">1</div>
-                <p>Напишите @devora_admin и получите уникальный реферальный код.</p>
+                <p>Напишите нам и получите уникальный реферальный код.</p>
             </div>
             <div class="ref-step">
                 <div class="ref-step-number">2</div>
@@ -744,7 +792,7 @@
             </div>
         </div>
 
-        <p style="max-width: 800px; margin: 20px auto;"><strong>Выплата:</strong> 50% от оплаченной клиентом суммы (за вычетом платежных комиссий). При рассрочке — выплаты поступают пропорционально.</p>
+        <p style="max-width: 800px; margin: 20px auto;"><strong>Выплата:</strong> 50% от оплаченной клиентом суммы.</p>
         
         <a href="https://t.me/devora_admin" class="cta-button">Получить реферальный код</a>
     </section>
@@ -755,14 +803,14 @@
             <div class="bg-circle"></div>
         </div>
         <h2 class="contact-title">Свяжитесь с нами</h2>
-        <p class="contact-description">Мы всегда рады новым проектам и заказам, наша команда очень большая и мы можем сразу обрабатывать большое количество заказов с максимальной скоростью.</p>
+        <p class="contact-description">Мы всегда открыты для новых проектов. Наша команда достаточно большая, чтобы обрабатывать большое количество заказов быстро и максимально эффективно.</p>
         
         <div class="contact-container">
             <div class="contact-links">
-                <a href="https://t.me/devora_admin" target="_blank" class="contact-link"><i class="fab fa-telegram"></i> Телеграм для связи (@devora_admin)</a>
-                <a href="mailto:devora.agency@mail.ru" class="contact-link"><i class="far fa-envelope"></i> Почта: devora.agency@mail.ru</a>
-                <a href="https://www.instagram.com/devora_aagency" target="_blank" class="contact-link"><i class="fab fa-instagram"></i> Инстаграм (DM)</a>
-                <a href="https://t.me/devora_agency" target="_blank" class="contact-link"><i class="fab fa-telegram"></i> Наш телеграм-канал</a>
+                <a href="https://t.me/devora_admin" target="_blank" class="contact-link"><i class="fab fa-telegram"></i> Telegram для связи</a>
+                <a href="mailto:devora.agency@mail.ru" class="contact-link"><i class="far fa-envelope"></i> devora.agency@mail.ru</a>
+                <a href="https://www.instagram.com/devora_aagency" target="_blank" class="contact-link"><i class="fab fa-instagram"></i> Instagram (DM)</a>
+                <a href="https://t.me/devora_agency" target="_blank" class="contact-link"><i class="fab fa-telegram"></i> Telegram-канал</a>
             </div>
         </div>
     </section>
@@ -806,15 +854,15 @@
 
         // Крутая анимация глитч-текста
         function startGlitchAnimation() {
-    const glitchText = document.getElementById('glitched-text');
-    const text = "Инновационные умные решения для роста вашего бизнеса.";
-    
-    // Просто создаем один span с целым текстом
-    const textSpan = document.createElement('span');
-    textSpan.textContent = text;
-    textSpan.style.animationDelay = `0.2s`;
-    glitchText.appendChild(textSpan);
-}
+            const glitchText = document.getElementById('glitched-text');
+            const text = "Инновационные умные решения для роста вашего бизнеса.";
+            
+            // Просто создаем один span с целым текстом
+            const textSpan = document.createElement('span');
+            textSpan.textContent = text;
+            textSpan.style.animationDelay = `0.2s`;
+            glitchText.appendChild(textSpan);
+        }
 
         // Запускаем анимацию текста когда секция становится видимой
         const homeObserver = new IntersectionObserver((entries) => {
