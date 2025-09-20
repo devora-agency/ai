@@ -396,32 +396,65 @@
         }
 
         .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            margin-top: 20px;
-            background: var(--accent-gradient);
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: all 0.1s linear;
-            border: none;
-            cursor: pointer;
-            font-size: 1.1rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease;
-        }
+    display: inline-block;
+    padding: 18px 45px;
+    margin-top: 25px;
+    background: var(--accent-gradient);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 0 0 20px rgba(161, 140, 209, 0.4);
+    animation: pulse 2s infinite;
+}
 
-        section.visible .cta-button {
-            opacity: 1;
-            transform: translateY(0);
-        }
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: all 0.6s ease;
+    z-index: -1;
+}
 
-        .cta-button:hover {
-            transform: translateY(-3px) scale(1.05) !important;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
+.cta-button:hover::before {
+    left: 100%;
+}
+
+.cta-button:hover {
+    transform: translateY(-5px) scale(1.05) !important;
+    box-shadow: 0 10px 30px rgba(161, 140, 209, 0.6);
+    animation: none;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 20px rgba(161, 140, 209, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(161, 140, 209, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(161, 140, 209, 0.4);
+    }
+}
+
+section.visible .cta-button {
+    opacity: 1;
+    transform: translateY(0);
+}
 
         /* Секция контактов */
         #contacts {
@@ -528,118 +561,132 @@
         }
 
         .footer-text {
-            margin-top: 20px;
-            opacity: 0.7;
-            font-size: 1.1rem;
-        }
+    margin-top: 20px;
+    opacity: 0.7;
+    font-size: 0.9rem; /* Измени с 1.1rem на 0.9rem */
+}
 
-        .policy-link {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-size: 1.1rem;
-        }
+.policy-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 0.9rem; /* Измени с 1.1rem на 0.9rem */
+}
 
         .policy-link:hover {
             text-decoration: underline;
         }
 
         /* Адаптивность */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            
-            }
-            .glitched-text {
-                font-size: 1.6rem;
-            }
-            h2 {
-                font-size: 2.2rem;
-            }
-            .subtitle {
-                font-size: 1.2rem;
-            }
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            .nav {
-                padding: 15px 4%;
-            }
-            .nav a {
-                padding: 14px 22px;
-                font-size: 1.1rem;
-                margin: 6px;
-            }
-            .ref-steps {
-                grid-template-columns: 1fr;
-            }
-            .benefits-container {
-                width: 100%;
-            }
-            .benefit-item {
-                margin: 15px 0;
-                padding: 20px;
-                font-size: 1.1rem;
-            }
-            .contact-link {
-                padding: 18px;
-                font-size: 1.1rem;
-            }
-            .contact-link i {
-                font-size: 1.8rem;
-            }
-            .footer-link {
-                font-size: 2rem;
-            }
-            .bg-circle:nth-child(1) {
-                width: 200px;
-                height: 200px;
-            }
-            .bg-circle:nth-child(2) {
-                width: 300px;
-                height: 300px;
-            }
-            .about-text {
-                font-size: 1.2rem;
-                padding: 0 15px;
-            }
-            .contact-description {
-                font-size: 1.2rem;
-                padding: 0 15px;
-            }
-            .service-card, .benefit-item, .ref-step {
-                padding: 25px;
-            }
-        }
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    .glitched-text {
+        font-size: 1.6rem;
+    }
+    h2 {
+        font-size: 2.2rem;
+    }
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    .nav {
+        padding: 8px 3%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        height: auto;
+    }
+    .nav a {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        margin: 2px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+    .ref-steps {
+        grid-template-columns: 1fr;
+    }
+    .benefits-container {
+        width: 100%;
+    }
+    .benefit-item {
+        margin: 15px 0;
+        padding: 20px;
+        font-size: 1.1rem;
+    }
+    .contact-link {
+        padding: 18px;
+        font-size: 1.1rem;
+    }
+    .contact-link i {
+        font-size: 1.8rem;
+    }
+    .footer-link {
+        font-size: 2rem;
+    }
+    .bg-circle:nth-child(1) {
+        width: 200px;
+        height: 200px;
+    }
+    .bg-circle:nth-child(2) {
+        width: 300px;
+        height: 300px;
+    }
+    .about-text {
+        font-size: 1.2rem;
+        padding: 0 15px;
+    }
+    .contact-description {
+        font-size: 1.2rem;
+        padding: 0 15px;
+    }
+    .service-card, .benefit-item, .ref-step {
+        padding: 25px;
+    }
+    .cta-button {
+        padding: 16px 35px;
+        font-size: 1.1rem;
+    }
+}
 
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2rem;
-            }
-            .glitched-text {
-                font-size: 1.3rem;
-            }
-            .nav {
-                padding: 12px 3%;
-            }
-            .nav a {
-                padding: 12px 18px;
-                font-size: 1rem;
-                margin: 4px;
-            }
-            section {
-                padding: 70px 4% 30px;
-            }
-            .footer-link {
-                font-size: 1.8rem;
-            }
-            .footer-text {
-                font-size: 1rem;
-            }
-            .nav a {
-                padding: 12px 20px;
-                font-size: 1rem;
-            }
-        }
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+    .glitched-text {
+        font-size: 1.3rem;
+    }
+    .nav {
+        padding: 5px 2%;
+    }
+    .nav a {
+        padding: 6px 10px;
+        font-size: 0.7rem;
+    }
+    section {
+        min-height: 70vh;
+        padding: 50px 4% 20px;
+    }
+    #home {
+        min-height: 90vh;
+    }
+    .footer-link {
+        font-size: 1.8rem;
+    }
+    .footer-text {
+        font-size: 1rem;
+    }
+    .cta-button {
+        padding: 14px 30px;
+        font-size: 1rem;
+        margin-top: 20px;
+    }
+}
+        
 
         /* Исправление для плавной прокрутки на iOS */
         @supports (-webkit-touch-callout: none) {
@@ -698,7 +745,7 @@
             <div class="bg-circle"></div>
         </div>
         <h2>О нас</h2>
-        <p class="about-text">Devora Agency — агенство по автоматизации бизнес-процессов на базе искусственного интеллекта. Мы помогаем бизнесам запускать умные решения, которые экономят время, удерживают клиентов и увеличивают обороты. Наша цель — сделать технологии простыми и доступными, чтобы вы могли сосредоточиться на развитии и прогрессе, а не на рутине.</p>
+        <p class="about-text">Devora Agency — агентство автоматизации бизнес-процессов на базе ИИ. Мы создаём решения, которые экономят время, удерживают клиентов и увеличивают прибыль. Наша цель — сделать технологии простыми и доступными, чтобы вы могли расти без рутины.</p>
         
         <h2 class="services-title">Наши услуги</h2>
         <div class="services-grid">
