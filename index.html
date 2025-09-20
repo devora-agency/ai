@@ -195,8 +195,8 @@
 
         /* Секция "О нас" */
         #about {
-            background: linear-gradient(135deg, #0f3460, #16213e);
-        }
+    background: linear-gradient(135deg, #0f3460, #16213e);
+}
 
         .about-text {
             font-size: 1.4rem;
@@ -290,6 +290,9 @@
             max-width: 1000px;
             margin: 0 auto;
         }
+        #benefits {
+    background: linear-gradient(135deg, #0f3460, #16213e);
+}
 
         .benefit-item {
             background: var(--card-bg);
@@ -339,8 +342,8 @@
 
         /* Секция реферальной программы */
         .ref-section {
-            background: linear-gradient(135deg, #1a1a2e, #0f3460);
-        }
+    background: linear-gradient(135deg, #1a1a2e, #0f3460);
+}
 
         .ref-steps {
             display: grid;
@@ -458,8 +461,8 @@ section.visible .cta-button {
 
         /* Секция контактов */
         #contacts {
-            background: linear-gradient(135deg, #16213e, #1a1a2e);
-        }
+    background: linear-gradient(135deg, #16213e, #1a1a2e);
+}
 
         .contact-description {
             font-size: 1.3rem;
@@ -579,7 +582,7 @@ section.visible .cta-button {
         /* Адаптивность */
 @media (max-width: 768px) {
     h1 {
-        font-size: 2.5rem;
+        font-size: 2.8rem; /* Увеличил */
     }
     .glitched-text {
         font-size: 1.6rem;
@@ -594,16 +597,16 @@ section.visible .cta-button {
         grid-template-columns: 1fr;
     }
     .nav {
-        padding: 8px 3%;
+        padding: 10px 4%; /* Увеличил */
         flex-wrap: nowrap;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         height: auto;
     }
     .nav a {
-        padding: 8px 12px;
-        font-size: 0.8rem;
-        margin: 2px;
+        padding: 10px 16px; /* Увеличил */
+        font-size: 0.9rem; /* Увеличил */
+        margin: 3px; /* Увеличил */
         white-space: nowrap;
         flex-shrink: 0;
     }
@@ -639,6 +642,7 @@ section.visible .cta-button {
     .about-text {
         font-size: 1.2rem;
         padding: 0 15px;
+        margin: 20px auto; /* Уменьшил отступ */
     }
     .contact-description {
         font-size: 1.2rem;
@@ -648,31 +652,41 @@ section.visible .cta-button {
         padding: 25px;
     }
     .cta-button {
-        padding: 16px 35px;
-        font-size: 1.1rem;
+        padding: 18px 40px; /* Увеличил кнопки */
+        font-size: 1.2rem; /* Увеличил */
+    }
+    section {
+        min-height: 95vh; /* Увеличил высоту секций */
+        padding: 70px 4% 40px; /* Увеличил отступы */
+    }
+    #home {
+        min-height: 95vh; /* Чуть увеличил главную */
+    }
+    .services-title {
+        margin: 30px 0 30px; /* Уменьшил отступы у "Наши услуги" */
     }
 }
 
 @media (max-width: 480px) {
     h1 {
-        font-size: 2rem;
+        font-size: 2.2rem; /* Увеличил */
     }
     .glitched-text {
         font-size: 1.3rem;
     }
     .nav {
-        padding: 5px 2%;
+        padding: 8px 3%; /* Увеличил */
     }
     .nav a {
-        padding: 6px 10px;
-        font-size: 0.7rem;
+        padding: 8px 14px; /* Увеличил */
+        font-size: 0.8rem; /* Увеличил */
     }
     section {
-        min-height: 70vh;
-        padding: 50px 4% 20px;
+        min-height: 80vh; /* Увеличил высоту */
+        padding: 60px 4% 30px; /* Увеличил отступы */
     }
     #home {
-        min-height: 90vh;
+        min-height: 92vh; /* Увеличил */
     }
     .footer-link {
         font-size: 1.8rem;
@@ -681,9 +695,9 @@ section.visible .cta-button {
         font-size: 1rem;
     }
     .cta-button {
-        padding: 14px 30px;
-        font-size: 1rem;
-        margin-top: 20px;
+        padding: 16px 35px; /* Увеличил */
+        font-size: 1.1rem; /* Увеличил */
+        margin-top: 25px; /* Увеличил */
     }
 }
         
@@ -717,6 +731,21 @@ section.visible .cta-button {
             backface-visibility: hidden;
             perspective: 1000px;
         }
+        /* Большие кнопки на мобильных */
+@media (max-width: 768px) {
+    .cta-button {
+        padding: 20px 45px !important;
+        font-size: 1.3rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .cta-button {
+        padding: 18px 40px !important;
+        font-size: 1.2rem !important;
+        margin-top: 30px !important;
+    }
+}
     </style>
 </head>
 <body>
@@ -868,7 +897,7 @@ section.visible .cta-button {
             <a href="https://www.instagram.com/devora_aagency" class="footer-link"><i class="fab fa-instagram"></i></a>
             <a href="mailto:devora.agency@mail.ru" class="footer-link"><i class="far fa-envelope"></i></a>
         </div>
-        <p class="footer-text">© 2024 Devora Agency. Все права защищены.</p>
+        <p class="footer-text">© 2025 Devora Agency. Все права защищены.</p>
         <p class="footer-text"><a href="https://telegra.ph/Politika-Devora-Agency-09-15" class="policy-link" target="_blank">Политика конфиденциальности</a></p>
     </footer>
 
